@@ -1,0 +1,313 @@
+/* configuratore.css – la sezione "In mostra" con il visualizzatore 3D
+   (si aggiunge a stile_esercizio4.css senza modificarlo) */
+
+.sezione-configuratore {
+    padding-top: 48px;
+}
+
+/* ===== visore 3D (colonna sinistra) ===== */
+/* PASSO 3: il visore */
+.visore {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background: #f3efe8;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+/* il canvas creato da Three.js riempie il visore (ci servirà dall'es. 2) */
+.visore canvas {
+    display: block;
+}
+
+/* i bottoni delle viste: una fila sopra il 3D, in basso a sinistra */
+.viste {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.vista {
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.85);
+    border: solid 1px #e5e0d6;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.vista.selected {
+    background: #000000;
+    border-color: #000000;
+    color: #ffffff;
+}
+
+/* la riga dell'esploso: a sinistra l'animazione alta quanto la colonna dei render */
+.colonna-esploso {
+    display: flex;
+    flex-direction: column;
+}
+
+.visore-esploso {
+    flex: 1;
+    min-height: 480px;
+}
+
+/* i render delle tre viste, uno sotto l'altro */
+.render-occhiali {
+    margin: 0 0 16px 0;
+}
+
+.render-occhiali:last-child {
+    margin-bottom: 0;
+}
+
+.render-occhiali img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #f3efe8;
+    border-radius: 8px;
+}
+
+/* il bottone che apre e chiude le stanghette */
+.btn-stanghette {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.btn-stanghette:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* PASSO 4: la scritta al centro del visore */
+
+
+/* ===== pannello opzioni (colonna destra) ===== */
+.pannello {
+    padding: 8px 0 32px 0;
+}
+
+.sovratitolo {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0 0 4px 0;
+}
+
+.descrizione {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.opzione {
+    border-top: solid 1px #e5e0d6;
+    padding: 16px 0;
+}
+
+.opzione-titolo {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.opzione-valore {
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+/* PASSO 5: i campioni in fila */
+.campioni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* PASSO 6: i campioni diventano cerchi e quello scelto si riconosce */
+.campione {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    border: solid 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.campione.selected {
+    outline: solid 2px #1a1a1a;
+    outline-offset: 3px;
+}
+
+
+/* i quadrati del gruppo Forma: quattro in fila */
+.forme {
+    display: flex;
+    gap: 8px;
+}
+
+.forma {
+    flex: 1;
+    min-width: 0;          /* con 5 quadrati in fila, li lascio stringere */
+    aspect-ratio: 1 / 1;   /* sempre quadrati */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    background: #ffffff;
+    border: solid 1px #e5e0d6;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.forma.selected {
+    background: #000000;
+    border-color: #000000;
+    color: #ffffff;
+}
+
+/* i rettangoli del gruppo Finitura: due affiancati */
+.finiture {
+    display: flex;
+    gap: 10px;
+}
+
+.finitura {
+    flex: 1;
+    padding: 10px 8px;
+    background: #ffffff;
+    border: solid 1px #e5e0d6;
+    border-radius: 8px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.finitura.selected {
+    background: #000000;
+    border-color: #000000;
+    color: #ffffff;
+}
+
+/* i bottoni degli abbinamenti (Roma, Parigi, Madrid): tre affiancati */
+.abbinamenti {
+    display: flex;
+    gap: 10px;
+}
+
+.abbinamento {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 8px;
+    background: #ffffff;
+    border: solid 1px #e5e0d6;
+    border-radius: 8px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.abbinamento.selected {
+    background: #000000;
+    border-color: #000000;
+    color: #ffffff;
+}
+
+/* i 4 pallini con i colori dell'abbinamento */
+.abbinamento-pallini {
+    display: flex;
+}
+
+.abbinamento-pallini span {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: solid 1px rgba(255, 255, 255, 0.8);
+    margin-left: -4px;   /* si sovrappongono un po' */
+}
+
+.abbinamento-pallini span:first-child {
+    margin-left: 0;
+}
+
+/* i due slider dei tempi dell'animazione, sotto il 3D: affiancati (uno sopra l'altro su telefono) */
+.tempi-animazione {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    padding-top: 16px;
+}
+
+.tempo-slider {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* PASSO 7: lo slider del gruppo Misura */
+.slider-misura {
+    width: 100%;
+    margin: 4px 0 6px 0;
+    accent-color: #000000;   /* la parte piena e il pallino diventano neri */
+    cursor: pointer;
+}
+
+/* le scritte 10 cm e 70 cm sotto lo slider, ai due lati */
+.slider-estremi {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+
+/* ===== nota e bottone ===== */
+.nota {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.55);
+    border-top: solid 1px #e5e0d6;
+    padding-top: 16px;
+    margin: 0;
+}
+
+.btn-principale {
+    display: block;
+    width: 100%;
+    background: #e06a35;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 14px;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-principale:hover {
+    background: #c4541f;
+}
+
+/* ===== media query del configuratore ===== */
+@media (max-width: 991px) {
+    /* PASSO 8: il visore su tablet e telefono */
+}

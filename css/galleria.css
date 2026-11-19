@@ -1,0 +1,342 @@
+/* galleria.css – la galleria di tutti gli occhiali e la finestra in sovrapposizione
+   (si aggiunge a configuratore.css senza modificarlo) */
+
+/* ===== la galleria: un quadrato per ogni occhiale ===== */
+.galleria-voce {
+    margin-bottom: 24px;
+}
+
+/* su schermo grande 5 quadrati per riga (bootstrap non ha una colonna da 1/5) */
+@media (min-width: 992px) {
+    .galleria-voce {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+/* il quadrato: sopra l'immagine degli occhiali, sotto le due opzioni */
+.galleria-quadrato {
+    aspect-ratio: 1 / 1;              /* sempre quadrato */
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    background: #f3efe8;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.galleria-immagine {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+}
+
+.galleria-immagine img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.galleria-immagine img[hidden] {
+    display: none;
+}
+
+/* la scritta mentre l'occhiale si carica */
+.galleria-caricamento {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.45);
+}
+
+/* le due opzioni, una sopra l'altra */
+.galleria-azioni {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.galleria-azioni button {
+    padding: 6px 4px;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 12px;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+.btn-guarda {
+    background: rgba(255, 255, 255, 0.85);
+    border: solid 1px #e5e0d6;
+    color: #000000;
+}
+
+.btn-prova {
+    background: #000000;
+    border: solid 1px #000000;
+    color: #ffffff;
+}
+
+.btn-guarda:hover {
+    background: #ffffff;
+    border-color: #000000;
+}
+
+.btn-prova:hover {
+    background: #333333;
+}
+
+.galleria-azioni button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.galleria-nome {
+    margin: 8px 0 0 0;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+
+/* ===== la finestra in sovrapposizione ===== */
+.sovrapposizione {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.sovrapposizione[hidden] {
+    display: none;
+}
+
+/* lo sfondo scuro dietro la finestra: cliccandoci si chiude */
+.sovrapposizione-sfondo {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.sovrapposizione-finestra {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+.sovrapposizione-testa {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px 24px;
+    margin-bottom: 16px;
+    padding-right: 40px;   /* spazio per la X */
+}
+
+.sovrapposizione-testa h3 {
+    margin: 0;
+}
+
+.sovrapposizione-modi {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-chiudi-sovrapposizione {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: #f3efe8;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 36px;
+    cursor: pointer;
+}
+
+/* Guarda: lo spazio del 3D */
+.palco {
+    height: min(560px, 65vh);
+    background: #f3efe8;
+    border-radius: 8px;
+    overflow: hidden;
+    touch-action: none;    /* col dito si gira l'occhiale, non la pagina */
+}
+
+.palco canvas {
+    display: block;
+}
+
+/* Provali adesso: l'immagine della fotocamera con sopra il 3D */
+.specchio {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* con la fotocamera l'immagine è come in uno specchio */
+.specchio.specchiato video,
+.specchio.specchiato canvas {
+    transform: scaleX(-1);
+}
+
+.specchio video,
+.specchio img,
+.specchio canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.specchio video[hidden],
+.specchio img[hidden] {
+    display: none;
+}
+
+.prova-messaggio {
+    margin: 12px 0;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+.prova-comandi {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px 16px;
+}
+
+.prova-comandi .finitura {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+/* il bottone per scattare: nero come quello delle stanghette, ma largo quanto il testo */
+.prova-comandi .btn-scatta {
+    width: auto;
+    padding: 10px 20px;
+}
+
+/* il lampo bianco quando si scatta */
+.specchio::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.specchio.lampo::after {
+    animation: lampo 0.4s ease-out;
+}
+
+@keyframes lampo {
+    from { opacity: 0.9; }
+    to   { opacity: 0; }
+}
+
+/* la fila delle foto scattate */
+.scatti {
+    border-top: solid 1px #e5e0d6;
+    margin-top: 16px;
+    padding-top: 16px;
+}
+
+.scatti[hidden] {
+    display: none;
+}
+
+.scatti-fila {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.scatti-fila a {
+    flex: 0 0 auto;
+    display: block;
+    border-radius: 6px;
+    overflow: hidden;
+    border: solid 1px #e5e0d6;
+}
+
+.scatti-fila a:hover {
+    border-color: #000000;
+}
+
+.scatti-fila img {
+    display: block;
+    height: 90px;
+    width: auto;
+}
+
+/* ogni foto: la miniatura e sotto il bottone per condividerla */
+.scatto {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.btn-whatsapp {
+    padding: 6px 10px;
+    background: #25D366;   /* il verde di WhatsApp */
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-whatsapp:hover {
+    background: #1da851;
+}
+
+.prova-misura {
+    flex: 1;
+    min-width: 200px;
+}
+
+.prova-misura .opzione-titolo {
+    margin-bottom: 4px;
+}
+
+/* ===== telefono ===== */
+@media (max-width: 575px) {
+    .sovrapposizione {
+        padding: 8px;
+    }
+
+    .sovrapposizione-finestra {
+        padding: 16px;
+    }
+
+    .galleria-azioni button {
+        font-size: 11px;
+    }
+}
