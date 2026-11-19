@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giulia Camasso — Occhiale</title>
+  <meta name="description" content="L'occhiale disegnato da Giulia Camasso: una lente avvolgente rosa cipria.">
+  <link rel="icon" href="img/logo-giulia-camasso.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/occhiali.css">
+  <!-- Three.js da CDN -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- il logo, riusato in tutta la pagina -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="segno" viewBox="0 0 78 56">
+      <circle class="anello" cx="20" cy="28" r="15"/>
+      <circle class="anello anello-rosa" cx="58" cy="28" r="15"/>
+      <path class="ponte" d="M34.5 24 Q39 19 43.5 24"/>
+      <text class="iniziale" x="20" y="33.5">G</text>
+      <text class="iniziale" x="58" y="33.5">C</text>
+    </symbol>
+  </svg>
+
+  <!-- ===== apertura: il logo si disegna, poi arrivano gli occhiali ===== -->
+  <div class="apertura" id="apertura" aria-hidden="true">
+    <div class="apertura-logo">
+      <svg class="apertura-segno" viewBox="0 0 78 56">
+        <circle class="anello" cx="20" cy="28" r="15" pathLength="100" transform="rotate(-90 20 28)"/>
+        <circle class="anello anello-rosa" cx="58" cy="28" r="15" pathLength="100" transform="rotate(-90 58 28)"/>
+        <path class="ponte" d="M34.5 24 Q39 19 43.5 24" pathLength="100"/>
+        <text class="iniziale" x="20" y="33.5">G</text>
+        <text class="iniziale" x="58" y="33.5">C</text>
+      </svg>
+      <p class="apertura-nome">Giulia Camasso</p>
+      <p class="apertura-sotto">occhiale</p>
+    </div>
+  </div>
+
+  <!-- la scena 3D: resta ferma dietro alla pagina, gli occhiali cambiano mentre scorri -->
+  <div class="scena" id="scena"></div>
+
+  <!-- le frecce dello spaccato -->
+  <div class="etichette" id="etichette" aria-hidden="true">
+    <svg class="etichette-linee" id="etichette-linee">
+      <defs>
+        <marker id="punta" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L8 4 L0 8 Z"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <header class="barra">
+    <a href="#inizio" class="logo" aria-label="Giulia Camasso">
+      <svg class="logo-segno"><use href="#segno"/></svg>
+      <span class="logo-nome">Giulia Camasso</span>
+    </a>
+    <nav class="menu">
+      <a href="#inizio">Apertura</a>
+      <a href="#movimento">Movimento</a>
+      <a href="#anatomia">Anatomia</a>
+      <a href="#colori">Colori</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 01 — apertura con le frasi -->
+    <section class="inizio" id="inizio">
+      <p class="occhiello">L'occhiale di Giulia Camasso</p>
+      <div class="frasi">
+        <p class="frase" id="frase">Una sola lente, avvolgente come uno sguardo.</p>
+      </div>
+      <a href="#movimento" class="scorri">Scorri</a>
+    </section>
+
+    <!-- 02 — si apre / si chiude con lo scroll -->
+    <section class="movimento" id="movimento">
+      <div class="fermo">
+        <div class="testo-movimento">
+          <p class="occhiello">02 — Movimento</p>
+          <h2 class="titolo">Le aste seguono<br><em>il tuo scroll.</em></h2>
+          <div class="stati" id="stati">
+            <span class="stato" data-stato="chiude">Si chiude</span>
+            <span class="stato" data-stato="apre">Si apre</span>
+          </div>
+          <div class="misura">
+            <div class="misura-barra"><span id="misura-riempimento"></span></div>
+            <p class="misura-testo"><span id="angolo">0°</span> · <span id="condizione">aperti</span></p>
+          </div>
+          <p class="nota">Scorri verso il basso per chiuderli, verso l'alto per riaprirli.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 — lo spaccato -->
+    <section class="anatomia" id="anatomia">
+      <div class="fermo">
+        <div class="testo-anatomia">
+          <p class="occhiello">03 — Anatomia</p>
+          <h2 class="titolo">Lo spaccato.</h2>
+          <p class="paragrafo" id="testo-spaccato">Continua a scorrere: l'occhiale si apre in tutte le sue parti.</p>
+        </div>
+      </div>
+    </section>
+    <!-- 04 — i colori: il modello a sinistra, le scelte a destra -->
+    <section class="colori" id="colori">
+      <!-- su quest'area si trascina per girare gli occhiali -->
+      <div class="area-giro" id="area-giro" aria-hidden="true"></div>
+      <p class="suggerimento-giro">Trascina per girarli</p>
+
+      <!-- sotto gli occhiali: le varianti del modello -->
+      <div class="modelli">
+       <div class="fila" role="group" aria-labelledby="fila-mio">
+        <p class="fila-titolo" id="fila-mio">Il mio occhiale</p>
+        <button class="modello" data-variante="originale" aria-pressed="true">
+          <svg viewBox="0 0 60 28" aria-hidden="true"><path d="M4 8 Q30 4 56 8 L56 18 Q46 24 36 20 Q30 15 24 20 Q14 24 4 18 Z"/></svg>
+          <span>Originale</span>
+        </button>
+        <button class="modello" data-variante="sottile" aria-pressed="false">
+          <svg viewBox="0 0 60 28" aria-hidden="true"><path d="M4 10 Q30 7 56 10 L56 16 Q46 20 36 17 Q30 13 24 17 Q14 20 4 16 Z"/></svg>
+          <span>Sottile</span>
+        </button>
+        <button class="modello" data-variante="maxi" aria-pressed="false">
+          <svg viewBox="0 0 60 28" aria-hidden="true"><path d="M4 5 Q30 1 56 5 L56 20 Q46 27 36 22 Q30 16 24 22 Q14 27 4 20 Z"/></svg>
+          <span>Maxi</span>
+        </button>
+        <button class="modello" data-variante="gatto" aria-pressed="false">
+          <svg viewBox="0 0 60 28" aria-hidden="true"><path d="M2 3 Q30 8 58 3 L56 18 Q46 24 36 20 Q30 15 24 20 Q14 24 4 18 Z"/></svg>
+          <span>Occhi di gatto</span>
+        </button>
+        <button class="modello" data-variante="avvolgente" aria-pressed="false">
+          <svg viewBox="0 0 60 28" aria-hidden="true"><path d="M7 8 Q30 3 53 8 Q58 13 55 19 Q46 24 36 20 Q30 15 24 20 Q14 24 5 19 Q2 13 7 8 Z"/></svg>
+          <span>Avvolgente</span>
+        </button>
+       </div>
+       <div class="fila" role="group" aria-labelledby="fila-altri">
+        <p class="fila-titolo" id="fila-altri">Altri tipi</p>
+        <button class="modello" data-tipo="classico" aria-pressed="false">
+          <svg viewBox="0 0 60 28" aria-hidden="true">
+            <path d="M3 6 H27 Q28.5 6 28 8 L25.5 19 Q25 21.5 22.5 21.5 H8 Q5.5 21.5 5 19 L2 8 Q1.5 6 3 6 Z"/>
+            <path d="M33 6 H57 Q58.5 6 58 8 L55 19 Q54.5 21.5 52 21.5 H37.5 Q35 21.5 34.5 19 L32 8 Q31.5 6 33 6 Z"/>
+            <path class="filo" d="M28 9 H32"/>
+          </svg>
+          <span>Classico</span>
+        </button>
+        <button class="modello" data-tipo="farfalla" aria-pressed="false">
+          <svg viewBox="0 0 60 28" aria-hidden="true">
+            <path d="M28 10 Q27 20 19 21.5 Q9 22.5 5.5 15 Q3.5 10 1.5 5 Q12 7 20 7.5 Q28 8 28 10 Z"/>
+            <path d="M32 10 Q33 20 41 21.5 Q51 22.5 54.5 15 Q56.5 10 58.5 5 Q48 7 40 7.5 Q32 8 32 10 Z"/>
+            <path class="filo" d="M28 10 Q30 8 32 10"/>
+          </svg>
+          <span>Farfalla</span>
+        </button>
+        <button class="modello" data-tipo="senzamontatura" aria-pressed="false">
+          <svg viewBox="0 0 60 28" aria-hidden="true">
+            <rect x="3.5" y="7.5" width="22" height="14" rx="5.5"/>
+            <rect x="34.5" y="7.5" width="22" height="14" rx="5.5"/>
+            <path class="filo" d="M25.5 10 Q30 7.5 34.5 10"/>
+          </svg>
+          <span>Senza montatura</span>
+        </button>
+       </div>
+      </div>
+
+      <div class="pannello">
+        <p class="occhiello">04 — Su misura</p>
+        <h2 class="titolo">I tuoi <em>colori.</em></h2>
+        <p class="paragrafo">Scegli il modello sotto gli occhiali, poi lenti, montatura e metallo: toni pensati per stare bene insieme.</p>
+
+        <div class="gruppo" data-parte="lente">
+          <div class="gruppo-testa"><span class="gruppo-nome">Lenti</span><span class="gruppo-valore">Rosa cipria</span></div>
+          <div class="campioni">
+            <button class="campione" data-colore="#fff1f5" data-mostra="#f7dde5" data-nome="Rosa cipria" aria-pressed="true"></button>
+            <button class="campione" data-colore="#fdf3e3" data-mostra="#f3e2c6" data-nome="Champagne"></button>
+            <button class="campione" data-colore="#f2effa" data-mostra="#e2dcef" data-nome="Lavanda"></button>
+            <button class="campione" data-colore="#eef5ec" data-mostra="#d9e4d5" data-nome="Salvia"></button>
+            <button class="campione" data-colore="#edf3f8" data-mostra="#d6e2ec" data-nome="Azzurro polvere"></button>
+            <button class="campione" data-colore="#d3cdca" data-mostra="#a8a09c" data-nome="Fumo"></button>
+          </div>
+        </div>
+
+        <div class="gruppo" data-parte="aste">
+          <div class="gruppo-testa"><span class="gruppo-nome">Montatura e aste</span><span class="gruppo-valore">Avorio</span></div>
+          <div class="campioni">
+            <button class="campione" data-colore="#f3ece7" data-nome="Avorio" aria-pressed="true"></button>
+            <button class="campione" data-colore="#e8c4cb" data-nome="Cipria"></button>
+            <button class="campione" data-colore="#c4a07e" data-nome="Cammello"></button>
+            <button class="campione" data-colore="#9fae9b" data-nome="Salvia"></button>
+            <button class="campione" data-colore="#5a1f2c" data-nome="Bordeaux"></button>
+            <button class="campione" data-colore="#222a3d" data-nome="Blu notte"></button>
+            <button class="campione" data-colore="#1d1a1b" data-nome="Nero lucido"></button>
+          </div>
+        </div>
+
+        <div class="gruppo" data-parte="metallo">
+          <div class="gruppo-testa"><span class="gruppo-nome">Metallo</span><span class="gruppo-valore">Oro champagne</span></div>
+          <div class="campioni">
+            <button class="campione campione-metallo" data-colore="#d8bc94" data-nome="Oro champagne" aria-pressed="true"></button>
+            <button class="campione campione-metallo" data-colore="#e2b4a4" data-nome="Oro rosa"></button>
+            <button class="campione campione-metallo" data-colore="#d6d6d8" data-nome="Argento"></button>
+            <button class="campione campione-metallo" data-colore="#5b5c61" data-nome="Canna di fucile"></button>
+          </div>
+        </div>
+
+        <button class="ripristina" id="ripristina">Torna all’originale</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="firma">
+    <svg class="firma-segno"><use href="#segno"/></svg>
+    <p class="firma-nome">Giulia Camasso</p>
+    <p class="firma-frase"><em>Vedere il mondo, un po' più in rosa.</em></p>
+    <p class="firma-piccolo">Occhiale · design di Giulia Camasso · 2026</p>
+  </footer>
+
+  <script src="js/occhiali.js"></script>
+</body>
+</html>
